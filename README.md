@@ -1,6 +1,6 @@
 # t3rnkey
 
-[![release](https://img.shields.io/github/v/release/chiefbiiko/t3rnkey?include_prereleases)](https://github.com/chiefbiiko/t3rnkey/releases/latest) [![GitHub license](https://img.shields.io/github/license/chiefbiiko/t3rnkey.svg)](https://github.com/chiefbiiko/t3rnkey/blob/main/LICENSE) [![stability-experimental](https://img.shields.io/badge/stability-experimental-orange.svg)](https://github.com/chiefbiiko/t3rnkey)
+[![release](https://img.shields.io/github/v/release/chiefbiiko/t3rnkey?include_prereleases)](https://github.com/chiefbiiko/t3rnkey/releases/latest) [![stability-experimental](https://img.shields.io/badge/stability-experimental-orange.svg)](https://github.com/chiefbiiko/t3rnkey)
 
 A tiny `bash` wrapper combinin' [`t3rn`](https://github.com/t3rn/t3rn) compatible 🗝️ tools, currently [`subkey`](https://github.com/paritytech/substrate/tree/master/bin/utils/subkey) and [`moonkey`](https://github.com/PureStake/moonbeam/tree/master/bin/utils/moonkey), 2 🔌 & ▶️
 

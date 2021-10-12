@@ -3,21 +3,20 @@
 # Requires: bash, basename, curl
 
 VERSION=0.1.0
-NAME=$(basename $0 .sh)
 
 t3rnkey_version(){
-  echo "$NAME v$VERSION"
+  echo "t3rnkey v$VERSION"
   subkey --version
   moonkey --version
 }
 
 t3rnkey_help(){
-  echo "$NAME v$VERSION
+  echo "t3rnkey v$VERSION
 
 Generate keypairs for t3rn compatible/connected chains
 
 USAGE:
-    $NAME [SUBCOMMAND] [FLAGS] [OPTIONS]
+    t3rnkey [SUBCOMMAND] [FLAGS] [OPTIONS]
 
 SUBCOMMANDS:
     polkadot    Generate Polkadot keypairs with subkey
@@ -25,7 +24,7 @@ SUBCOMMANDS:
     latest      Update t3rnkey, subkey and moonkey to their latest versions
 
 For separate subcommand help/version info run:
-    $NAME polkadot|ethereum -h|--help|-v|--version"
+    t3rnkey polkadot|ethereum -h|--help|-v|--version"
 }
 
 t3rnkey_latest() {
@@ -37,13 +36,13 @@ t3rnkey_latest() {
 
   # Maybe usin' sudo 2 write to /usr/local/bin
   if [ ! -O /usr/local/bin ]; then
-    SUDO_MAYBE=sudo
+    sudo_maybe=sudo
   fi
 
-  $SUDO_MAYBE curl -sSfLo /usr/local/bin/$NAME \
+  $sudo_maybe curl -sSfLo /usr/local/bin/t3rnkey \
     https://raw.githubusercontent.com/chiefbiiko/t3rnkey/v$VERSION/t3rnkey.sh
 
-  $SUDO_MAYBE chmod +x /usr/local/bin/$NAME
+  $sudo_maybe chmod +x /usr/local/bin/t3rnkey
 
   # Fetchin' the latest release URLs for subkey and moonkey...
   subkey_latest=$( \
@@ -81,6 +80,7 @@ t3rnkey_ethereum(){
 }
 
 subcommand=$1
+install=$2
 
 case $subcommand in
   "" | "-h" | "--help")
@@ -91,9 +91,10 @@ case $subcommand in
   ;;
   *)
   shift
-  if ! t3rnkey_${subcommand} $@; then
-    code=$?
-    echo "error: unknown subcommand '$subcommand' - run '$NAME --help'" 1>&2
+  "t3rnkey_${subcommand}" "$@"
+  code=$?
+  if [[ $code -ne 0 ]]; then
+    echo "error: unknown subcommand '$subcommand' - run 't3rnkey --help'" 1>&2
     exit $code
   fi
   ;;
