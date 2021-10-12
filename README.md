@@ -7,7 +7,7 @@ A tiny `bash` wrapper combinin' [`t3rn`](https://github.com/t3rn/t3rn) compatibl
 ## Installation
 
 ```bash
-curl -sSf https://raw.githubusercontent.com/chiefbiiko/t3rnkey/v0.1.0/t3rnkey.sh | bash -s -- latest
+curl -sSf https://raw.githubusercontent.com/chiefbiiko/t3rnkey/master/t3rnkey.sh | bash latest
 ```
 
 ## Usage

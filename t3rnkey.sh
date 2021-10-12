@@ -1,6 +1,8 @@
-#!/usr/local/env bash
+#!/bin/bash
 
 VERSION=0.1.0
+SUBKEY_VERSION=2.0.1
+MOONKEY_VERSION=0.1.0
 
 t3rnkey_version() {
   echo "t3rnkey v$VERSION"
@@ -26,46 +28,32 @@ For separate subcommand help/version info run:
 }
 
 t3rnkey_latest() {
-  # Fetchin' and overwritin' self
+  # Checks...
   if [ ! -d /usr/local/bin ]; then
-    echo "/usr/local/bin does not exist" 1>&2
+    echo "error: /usr/local/bin does not exist" 1>&2
     exit 1
   fi
 
-  # Maybe usin' sudo 2 write to /usr/local/bin
+  # ...Maybe usin' sudo 2 write to /usr/local/bin
   if [ ! -O /usr/local/bin ]; then
     sudo_maybe=sudo
   fi
 
   $sudo_maybe curl -sSfLo /usr/local/bin/t3rnkey \
-    https://raw.githubusercontent.com/chiefbiiko/t3rnkey/v$VERSION/t3rnkey.sh
+    https://raw.githubusercontent.com/chiefbiiko/t3rnkey/master/t3rnkey.sh
 
   $sudo_maybe chmod +x /usr/local/bin/t3rnkey
-
-  # Fetchin' the latest release URLs for subkey and moonkey...
-  subkey_latest=$(
-    curl -sSfLI -o /dev/null -w %{url_effective} \
-      https://github.com/paritytech/substrate/releases/latest
-  )
-  moonkey_latest=$(
-    curl -sSfLI -o /dev/null -w %{url_effective} \
-      https://github.com/PureStake/moonbeam/releases/latest
-  )
-
-  # ...Extractin' their latest versions
-  subkey_version=${subkey_latest#*/v}
-  moonkey_version=${moonkey_latest#*/v}
 
   # We need substrate build deps 2 install subkey & moonkey
   # `--fast` flag 2 get the deps without installin' substrate & subkey
   curl -sSf https://getsubstrate.io | bash -s -- --fast
 
   # Installin' only `subkey`, @ a specific version of the subkey crate
-  cargo install subkey --version $subkey_version --locked \
+  cargo install subkey --version $SUBKEY_VERSION --locked \
     --git https://github.com/paritytech/substrate
 
   # Installin' moonkey
-  cargo install moonkey --version $moonkey_version --locked \
+  cargo install moonkey --version $MOONKEY_VERSION --locked \
     --git https://github.com/PureStake/moonbeam
 }
 
