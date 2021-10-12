@@ -1,16 +1,14 @@
-#!/bin/bash
-
-# Requires: bash, basename, curl
+#!/usr/local/env bash
 
 VERSION=0.1.0
 
-t3rnkey_version(){
+t3rnkey_version() {
   echo "t3rnkey v$VERSION"
   subkey --version
   moonkey --version
 }
 
-t3rnkey_help(){
+t3rnkey_help() {
   echo "t3rnkey v$VERSION
 
 Generate keypairs for t3rn compatible/connected chains
@@ -45,17 +43,17 @@ t3rnkey_latest() {
   $sudo_maybe chmod +x /usr/local/bin/t3rnkey
 
   # Fetchin' the latest release URLs for subkey and moonkey...
-  subkey_latest=$( \
+  subkey_latest=$(
     curl -sSfLI -o /dev/null -w %{url_effective} \
-    https://github.com/paritytech/substrate/releases/latest \
+      https://github.com/paritytech/substrate/releases/latest
   )
-  moonkey_latest=$( \
+  moonkey_latest=$(
     curl -sSfLI -o /dev/null -w %{url_effective} \
-    https://github.com/PureStake/moonbeam/releases/latest \
+      https://github.com/PureStake/moonbeam/releases/latest
   )
 
   # ...Extractin' their latest versions
-  subkey_version=${subkey_latest#*/v} 
+  subkey_version=${subkey_latest#*/v}
   moonkey_version=${moonkey_latest#*/v}
 
   # We need substrate build deps 2 install subkey & moonkey
@@ -71,31 +69,35 @@ t3rnkey_latest() {
     --git https://github.com/PureStake/moonbeam
 }
 
-t3rnkey_polkadot(){
+t3rnkey_polkadot() {
   subkey generate $@
 }
 
-t3rnkey_ethereum(){
+t3rnkey_ethereum() {
   moonkey $@
 }
 
-subcommand=$1
-install=$2
+# mainish
 
+subcommand=$1
 case $subcommand in
-  "" | "-h" | "--help")
+"" | "-h" | "--help")
   t3rnkey_help
   ;;
-  "-V" | "-v" | "--version")
+"-V" | "-v" | "--version")
   t3rnkey_version
   ;;
-  *)
-  shift
-  "t3rnkey_${subcommand}" "$@"
-  code=$?
-  if [[ $code -ne 0 ]]; then
-    echo "error: unknown subcommand '$subcommand' - run 't3rnkey --help'" 1>&2
-    exit $code
-  fi
+"polkadot")
+  t3rnkey_polkadot $@
+  ;;
+"ethereum")
+  t3rnkey_ethereum $@
+  ;;
+"latest")
+  t3rnkey_latest $@
+  ;;
+*)
+  echo "error: unknown subcommand '$subcommand' - run 't3rnkey --help'" 1>&2
+  exit 127
   ;;
 esac
