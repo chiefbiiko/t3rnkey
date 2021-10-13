@@ -3,7 +3,7 @@
 VERSION=0.1.0
 
 t3rnkey_version() {
-  echo "t3rnkey v$VERSION"
+  echo "t3rnkey $VERSION"
   subkey --version
   moonkey --version
 }
