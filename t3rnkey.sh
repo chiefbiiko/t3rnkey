@@ -75,17 +75,15 @@ case $subcommand in
 "-V" | "-v" | "--version")
   t3rnkey_version
   ;;
-"polkadot")
-  t3rnkey_polkadot $@
-  ;;
-"ethereum")
-  t3rnkey_ethereum $@
-  ;;
-"latest")
-  t3rnkey_latest $@
-  ;;
 *)
-  echo "error: unknown subcommand '$subcommand' - run 't3rnkey --help'" 1>&2
-  exit 127
+  shift
+  out=$(t3rnkey_${subcommand} $@ 2>&1)
+  code=$?
+  if [ $code -ne 0 ]; then
+    echo "$out" 1>&2
+    exit $code
+  else
+    echo "$out"
+  fi
   ;;
 esac
