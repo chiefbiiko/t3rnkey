@@ -4,10 +4,12 @@
 
 A tiny `bash` wrapper combinin' [`t3rn`](https://github.com/t3rn/t3rn) compatible 🗝️ tools, currently [`subkey`](https://github.com/paritytech/substrate/tree/master/bin/utils/subkey) and [`moonkey`](https://github.com/PureStake/moonbeam/tree/master/bin/utils/moonkey), 2 🔌 & ▶️
 
+Built 4 Linux 🐧
+
 ## Installation
 
 ```bash
-curl -sSf https://raw.githubusercontent.com/chiefbiiko/t3rnkey/master/t3rnkey.sh | bash latest
+curl -sSf https://raw.githubusercontent.com/chiefbiiko/t3rnkey/master/install.sh | sh
 ```
 
 ## Usage
@@ -15,7 +17,6 @@ curl -sSf https://raw.githubusercontent.com/chiefbiiko/t3rnkey/master/t3rnkey.sh
 ```bash
 t3rnkey polkadot # Gen a Substrate/Polkadot keypair
 t3rnkey ethereum # Gen an Ethereum keypair
-t3rnkey latest   # Updatin' subkey, moonkey, + t3rnkey itself
 t3rnkey -h       # More help
 t3rnkey -v       # All versions
 ```
