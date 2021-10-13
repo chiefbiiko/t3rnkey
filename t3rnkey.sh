@@ -58,11 +58,11 @@ t3rnkey_latest() {
 }
 
 t3rnkey_polkadot() {
-  subkey generate $@
+  subkey generate "$@"
 }
 
 t3rnkey_ethereum() {
-  moonkey $@
+  moonkey "$@"
 }
 
 # mainish
@@ -76,14 +76,10 @@ case $subcommand in
   t3rnkey_version
   ;;
 *)
-  shift
-  out=$(t3rnkey_${subcommand} $@ 2>&1)
-  code=$?
-  if [ $code -ne 0 ]; then
-    echo "$out" 1>&2
-    exit $code
+  if [[ ! -x /usr/local/bin/t3rnkey ]]; then
+    t3rnkey_latest
   else
-    echo "$out"
+    t3rnkey_${subcommand} "$@"
   fi
   ;;
 esac
